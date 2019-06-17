@@ -1,0 +1,15 @@
+Package: neggfl
+Type: Package
+Title: NEG generalized fused lasso.
+Version: 0.0.1
+Date: 2019-06-16
+Author: K. S.
+Maintainer: K. S. <yourfault@somewhere.net>
+Description: NEG generalized fused lasso.
+License: Apache
+Imports: Rcpp (>= 0.12.18)
+LinkingTo: Rcpp, RcppArmadillo
+Encoding: UTF-8
+RoxygenNote: 6.1.1
+Suggests: 
+    testthat
