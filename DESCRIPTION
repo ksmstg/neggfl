@@ -6,10 +6,10 @@ Date: 2019-06-16
 Author: K. S.
 Maintainer: K. S. <yourfault@somewhere.net>
 Description: NEG generalized fused lasso.
+Depends: R (>= 3.5.1)
 License: Apache
-Imports: Rcpp (>= 0.12.18)
-LinkingTo: Rcpp, RcppArmadillo
+Imports: Rcpp (>= 0.12.18), RcppArmadillo (>= 0.9.200.7.0), dplyr (>= 0.7.6)
+LinkingTo: Rcpp, RcppArmadillo, RcppDist, RcppProgress 
 Encoding: UTF-8
 RoxygenNote: 6.1.1
-Suggests: 
-    testthat
+Suggests: testthat
