@@ -9,12 +9,12 @@
 ## support within Armadillo prefers / requires it
 
 ## gcc
-CC = /usr/local/bin/gcc-9
-CXX = /usr/local/bin/g++-9
+LLVM_LOC=/usr/local/opt/llvm
+CC=$(LLVM_LOC)/bin/clang
+CXX=$(LLVM_LOC)/bin/clang++
 
 ## CXX_STD = CXX11
 CXX_STD = CXX
 
 PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) 
 PKG_LIBS = $(SHLIB_OPENMP_CXXFLAGS) $(LAPACK_LIBS) $(BLAS_LIBS) $(FLIBS)
-

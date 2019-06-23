@@ -14,6 +14,7 @@ library(dplyr)
 
 source("./R/gbsNegGflasso.R")
 
+library("neggfl")
 
 # 1. Data setting ---------------------------------------------------------
 

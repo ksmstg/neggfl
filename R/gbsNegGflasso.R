@@ -3,6 +3,9 @@ library(Rcpp)
 sourceCpp("./src/gbsNegGflasso.cpp")
 source("./R/sparseAlgorithm.R")
 
+#' @useDynLib neggfl, .registration = TRUE
+#' @importFrom Rcpp sourceCpp
+NULL
 
 ##' Bayesian fused lasso via NEG prior
 ##' 
