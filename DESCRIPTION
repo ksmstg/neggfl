@@ -11,7 +11,8 @@ License: Apache
 Imports: 
     Rcpp,
     RcppArmadillo (>= 0.9.200.7.0),
-    dplyr (>= 0.8.1)
+    dplyr (>= 0.8.1),
+    mvtnorm (>= 1.0-8)
 LinkingTo: Rcpp, RcppArmadillo, RcppDist, RcppProgress 
 Encoding: UTF-8
 RoxygenNote: 6.1.1

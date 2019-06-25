@@ -3,4 +3,5 @@
 export(negfl)
 importFrom(Rcpp,sourceCpp)
 importFrom(dplyr,"%>%")
+importFrom(mvtnorm,dmvnorm)
 useDynLib(neggfl, .registration = TRUE)

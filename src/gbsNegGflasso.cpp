@@ -286,7 +286,7 @@ class negflm_bas : public negflm{
     arma::mat samp_psi_til(arma::mat _invtau2_til, double _sigma2){
       psi_til_new = arma::zeros(p-1,1);
       for(int j=0 ; j < p-1 ; j++){
-        theta_psi_til = 1.0/_invtau2_til(j,0) + sq(gamma2);
+        theta_psi_til = _invtau2_til(j,0) / (1.0 + _invtau2_til(j,0)*sq(gamma2));
         kappa_psi_til = lamb2 + 1.0;
         psi_til_new(j,0) = rand_gamma(theta_psi_til, kappa_psi_til);
       }

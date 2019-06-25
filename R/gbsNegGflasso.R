@@ -19,6 +19,7 @@ NULL
 ##' @param method Estimation method from ex posterior distribution sample.
 ##' 
 ##' @importFrom dplyr %>%
+##' @importFrom mvtnorm dmvnorm
 ##' 
 ##' @export
 negfl <- function(x, y, lambda2, gamma2, maxiter=1e5, burnin=3e4, scaled=T, method="mode_kde"){
