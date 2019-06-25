@@ -1,12 +1,22 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-neggfl
-======
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+# neggfl
 
 Implementation of fused lasso regression modeling with NEG prior distribution.
 
-Installation
-------------
+## Installation
 
 Or for the latest development version:
 
@@ -14,12 +24,11 @@ Or for the latest development version:
 devtools::install_github("ksmstg/neggfl") 
 ```
 
-Example
--------
+## Example
 
 This is a basic example which shows you how to solve a common problem:
 
-``` r
+```{r example}
 library("neggfl")
 
 # 1. Data setting ---------------------------------------------------------
@@ -30,10 +39,10 @@ p=100
 # 2. Generate data. -------------------------------------------------------
 
 beta=rep(0,p)
-beta[1:20]=1
-beta[11:15]=2
-beta[25]=3
-beta[41:45]=1
+beta[ 1:20]  = 1
+beta[11:15]  = 2
+beta[25]     = 3
+beta[41:45 ] = 1
 x=matrix(rnorm(n*p),n,p)
 y=x%*%beta+rnorm(n,0,0.5)
 
@@ -49,6 +58,5 @@ mod <- negfl(x, y, lambda2=lambda2, gamma2=gamma2)
 plot(beta,col="blue",type="b",pch=1,ylim=range(beta, mod$beta))
 lines(mod$beta, type="b",lty=1,col="black")
 legend("topright",pch=1,lty=1,merge=TRUE,text.col=c("blue","black"),legend=c("True","Fitted"))
-```
 
-<img src="man/figures/README-example-1.png" width="100%" />
+```

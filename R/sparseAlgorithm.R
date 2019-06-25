@@ -5,8 +5,8 @@ sourceCpp("./src/gbsNegGflasso.cpp")
 dnegfl <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2){
   score = dmvnorm(as.numeric(y), as.numeric(x%*%beta_hat), sigma2_hat*diag(n), log=T)
 
-  dprior_log <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2){
-    p <- ncol(x)
+  dprior_log <- function(beta_hat, sigma2_hat, lamb2, gamma2){
+    p <- length(beta_hat)
     score = 0
     for(j in 2:p){
       score = score + (beta_hat[j-1]-beta_hat[j])^2 / (4.0*gamma2^2*sigma2_hat) +
@@ -15,7 +15,7 @@ dnegfl <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2){
     return(score)
   }
 
-  score = score + dprior_log(y, x, beta_hat, sigma2_hat, lamb2, gamma2)
+  score = score + dprior_log(beta_hat, sigma2_hat, lamb2, gamma2)
 
   return(score)
 }
