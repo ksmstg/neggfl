@@ -30,10 +30,10 @@ p=100
 # 2. Generate data. -------------------------------------------------------
 
 beta=rep(0,p)
-beta[1:20]=1
-beta[11:15]=2
-beta[25]=3
-beta[41:45]=1
+beta[ 1:20]  = 1
+beta[11:15]  = 2
+beta[25]     = 3
+beta[41:45 ] = 1
 x=matrix(rnorm(n*p),n,p)
 y=x%*%beta+rnorm(n,0,0.5)
 
@@ -44,7 +44,8 @@ gamma2=0.5
 
 # 4. Execute --------------------------------------------------------------
 
-mod <- negfl(x, y, lambda2=lambda2, gamma2=gamma2)
+mod <- negfl(x, y, lambda2=lambda2, gamma2=gamma2, maxiter=5e3, burnin=2e3)
+ic <- ebic(x, y, mod$beta, mod$sigma2)
 
 plot(beta,col="blue",type="b",pch=1,ylim=range(beta, mod$beta))
 lines(mod$beta, type="b",lty=1,col="black")

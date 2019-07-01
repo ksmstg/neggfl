@@ -39,15 +39,18 @@ negfl <- function(x, y, lambda2, gamma2, maxiter=1e5, burnin=3e4, scaled=T, meth
   beta_hat_tmp = posterior$beta[,,burnin:B] %>% apply(., 1, eval(parse(text = method))) %>% matrix()
   sigma2_hat = posterior$sigma[,,burnin:B] %>% eval(parse(text = method))()
   
-  beta_hat <- sfa_negfl(y, x, beta_hat_tmp, sigma2_hat, lambda2, gamma2)
+  sfa_res <- sfa_negfl(y, x, beta_hat_tmp, sigma2_hat, lambda2, gamma2)
+  beta_hat <- sfa_res$beta %>% matrix()
   
   beta_hat_tmp <-  diag(1/x_sd) %*% beta_hat_tmp
   beta_hat <- diag(1/x_sd) %*% beta_hat
   
   return(list(
+    name="negfl",
     beta=beta_hat, 
+    beta_index=sfa_res$index, 
     beta_tmp=beta_hat_tmp, 
-    sigma=sigma2_hat,
+    sigma2=sigma2_hat,
     lambda2=lambda2,
     gamma2=gamma2))
 }

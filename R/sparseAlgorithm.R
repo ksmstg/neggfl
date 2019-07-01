@@ -56,10 +56,10 @@ sfa_negfl <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2, repeat_num=5){
 
       scores_max = which.max(scores)
       if( names(scores_max) == "front" & j > 1){
-        beta_res[ind_beta == ind_beta[j]] = beta_res[j-1];
+        beta_res = beta_front;
         ind_beta[ind_beta == ind_beta[j]] = ind_beta[j-1];
       }else if( names(scores_max) == "back" & j < p){
-        beta_res[ind_beta == ind_beta[j]] = beta_res[j+1];
+        beta_res = beta_back;
         ind_beta[ind_beta == ind_beta[j]] = ind_beta[j+1];
       }
 
@@ -68,7 +68,7 @@ sfa_negfl <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2, repeat_num=5){
     }
   }
 
-  return(beta_res)
+  return(list(beta=beta_res, index=ind_beta))
 
 }
 
