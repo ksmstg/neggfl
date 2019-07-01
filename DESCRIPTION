@@ -1,7 +1,7 @@
 Package: neggfl
 Type: Package
 Title: NEG generalized fused lasso.
-Version: 0.0.2
+Version: 0.0.3
 Date: 2019-06-16
 Author: K. S.
 Maintainer: K. S. <yourfault@somewhere.net>
