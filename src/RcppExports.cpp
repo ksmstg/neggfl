@@ -6,18 +6,6 @@
 
 using namespace Rcpp;
 
-// mode_kde
-double mode_kde(arma::vec points, int T);
-RcppExport SEXP _neggfl_mode_kde(SEXP pointsSEXP, SEXP TSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< arma::vec >::type points(pointsSEXP);
-    Rcpp::traits::input_parameter< int >::type T(TSEXP);
-    rcpp_result_gen = Rcpp::wrap(mode_kde(points, T));
-    return rcpp_result_gen;
-END_RCPP
-}
 // negfl_bas
 Rcpp::List negfl_bas(arma::mat y, arma::mat X, Rcpp::DataFrame hparams, int B);
 RcppExport SEXP _neggfl_negfl_bas(SEXP ySEXP, SEXP XSEXP, SEXP hparamsSEXP, SEXP BSEXP) {
@@ -29,6 +17,18 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< Rcpp::DataFrame >::type hparams(hparamsSEXP);
     Rcpp::traits::input_parameter< int >::type B(BSEXP);
     rcpp_result_gen = Rcpp::wrap(negfl_bas(y, X, hparams, B));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mode_kde
+double mode_kde(arma::vec points, int T);
+RcppExport SEXP _neggfl_mode_kde(SEXP pointsSEXP, SEXP TSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::vec >::type points(pointsSEXP);
+    Rcpp::traits::input_parameter< int >::type T(TSEXP);
+    rcpp_result_gen = Rcpp::wrap(mode_kde(points, T));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -47,8 +47,8 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_neggfl_mode_kde", (DL_FUNC) &_neggfl_mode_kde, 2},
     {"_neggfl_negfl_bas", (DL_FUNC) &_neggfl_negfl_bas, 4},
+    {"_neggfl_mode_kde", (DL_FUNC) &_neggfl_mode_kde, 2},
     {"_neggfl_Int_simt_log_D", (DL_FUNC) &_neggfl_Int_simt_log_D, 3},
     {NULL, NULL, 0}
 };

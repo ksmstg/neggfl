@@ -1,6 +1,7 @@
 library(Rcpp)
 
 sourceCpp("./src/gbsNegGflasso.cpp")
+sourceCpp("./src/kernelDensity.cpp")
 source("./R/sparseAlgorithm.R")
 
 #' @useDynLib neggfl, .registration = TRUE
