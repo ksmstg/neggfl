@@ -45,20 +45,23 @@ plot(beta,col="blue",type="b",pch=1,ylim=range(beta, mod$beta))
 lines(mod$beta, type="b",lty=1,col="black")
 legend("topright",pch=1,lty=1,merge=TRUE,text.col=c("blue","black"),legend=c("True","Fitted"))
 
-grid_res <- list()
 lambda2s <- c(2500, 2750, 3000, 3250, 3500)
 gamma2s <- c(0.15, 0.2, 0.25)
 
 hparams <- expand.grid(lambda2=lambda2s, gamma2=gamma2s)
+hparams <- rbind(hparams, c(100, 0.2))
+hparams <- rbind(hparams, c(10000, 0.2))
 
+grid_res <- list()
+grid_ebic <- rep(NA, nrow(hparams))
 for(k in 1:nrow(hparams)){
   hparam = hparams[k,]
   lambda2 = hparam$lambda2
   gamma2 = hparam$gamma2
   mod <- negfl(x, y, lambda2=lambda2, gamma2=gamma2)
-  grid_res[[k]] <- list(beta = mod$beta, 
-                        lambda2 = lambda2,
-                        gamma2 = gamma2)
+  
+  grid_res[[k]] <- list(beta = mod$beta,  lambda2 = lambda2, gamma2 = gamma2)
+  grid_ebic[k] <- ebic(x, y, mod$beta, mod$sigma2)
   
   fname = paste0("./debug/result/", "plot_lambda2=", lambda2, "_gamma2=", gamma2, ".png")
   png(fname, width = 300, height = 400)  # 描画デバイスを開く
@@ -68,5 +71,6 @@ for(k in 1:nrow(hparams)){
   dev.off()                      
 }
 
+res <- grid_res[[grid_ebic %>% which.max()]]
 
-
+  
