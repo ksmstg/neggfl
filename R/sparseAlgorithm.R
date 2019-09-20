@@ -1,6 +1,7 @@
+library(Rcpp)
 library(mvtnorm)
 
-sourceCpp("./src/gbsNegGflasso.cpp")
+sourceCpp("./src/parabolicCylinder.cpp")
 
 dnegfl <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2){
   score = dmvnorm(as.numeric(y), as.numeric(x%*%beta_hat), sigma2_hat*diag(n), log=T)
