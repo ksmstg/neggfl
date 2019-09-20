@@ -1,5 +1,3 @@
-#include "sampling.h"
-
 // [[Rcpp::plugins("cpp14")]]
 // [[Rcpp::depends(RcppArmadillo, RcppDist)]]
 #include <RcppDist.h>
@@ -9,6 +7,7 @@
 #include <progress.hpp>
 #include <progress_bar.hpp>
 
+#include "sampling.h"
 
 double sq(double x){
   return x*x;
@@ -25,61 +24,6 @@ double sq_norm_mat(arma::mat x){
 }
 
 double sqrt(double);
-  
-double rinvgauss(double mu, double lambda){
-  
-  double z,y,x,u, random;
-  
-  z=R::rnorm(0,1);
-  y=z*z;
-  x=mu+0.5*mu*mu*y/lambda - 0.5*(mu/lambda)*sqrt(4*mu*lambda*y+mu*mu*y*y);
-  u=R::runif(0,1);
-  if(u <= mu/(mu+x)){
-    random = x;
-  }else{
-    random = mu*mu/x;
-  };
-  
-  return(random);
-}
-
-// double D(double w, double x, double lamb, double a){
-//   /* Used report */
-//   return std::pow(w,(2.0*lamb+a-1.0))*std::exp(-0.5*w*w-x*w);
-// }
-// 
-// // [[Rcpp::export]]
-// double Int_simt_log_D(double x, double lamb, double a){
-//   /* Used report */
-//   int k, k0, N=100000;
-//   double s, f, w = 0.00, dh=0.01, DELTA = 1.0e-10;
-//   s = D(w, x, lamb, a)/2.0;
-//   
-//   for (k0=1; k0<=100; k0++){
-//     w = 0.00;
-//     dh = 0.001/(k0*k0);
-//     s = D(w, x, lamb, a)/2.0;
-//     //dh = (0.001+std::sqrt(std::abs(f)))*k0;
-//     for (k=1; k<=N; k++) {
-//       w = w + dh;
-//       f = D(w, x, lamb, a);
-//       //if(k==1){std::cout << k << "\t" << "f : "<< f << "\n";}
-//       s = s + f;
-//       //std::cout << "test01 : "<< k0 << "\t" << k << "\t" << std::abs(f) << "\n";
-//       if (std::abs(f) < DELTA) {
-//         if(dh*s!=0){
-//           //std::cout << "CONVERGENT"<< dh*s*std::exp(-x*x/4.0) << "\n";
-//           if(std::isinf(std::abs(std::log(dh*s) - x*x/4.0))){
-//             std::cout << "/n/n/n/n/n logD is Inf /n/n/n/n/n"  << "\n";
-//           }
-//           return std::log(dh*s) - x*x/4.0;
-//         }
-//       }
-//     }
-//   }
-//   //printf("NOT CONVERGENT\n");
-//   return DELTA;
-// }
 
 double bw_nrd0(arma::vec x){
   /* Used report */
@@ -279,7 +223,7 @@ class negflm_bas : public negflm{
       for(int j=0 ; j < p-1 ; j++){
         lamb_invtau2_til = 2.0 * _psi_til(j,0);
         mu_invtau2_til = sqrt( (lamb_invtau2_til*_sigma2) / std::abs(_beta(j+1,0)-_beta(j,0)) );
-        invtau2_til_new(j,0) = rinvgauss(mu_invtau2_til, lamb_invtau2_til);
+        invtau2_til_new(j,0) = rand_invgauss(mu_invtau2_til, lamb_invtau2_til);
       }
       return invtau2_til_new;
     }
