@@ -3,10 +3,7 @@
 #include <RcppDist.h>
 #include <RcppArmadillo.h>
 
-// [[Rcpp::depends(RcppProgress)]]
-#include <progress.hpp>
-#include <progress_bar.hpp>
-
+#include "bayesSparseModel.h"
 #include "sampling.h"
 
 double sq(double x){
@@ -25,73 +22,8 @@ double sq_norm_mat(arma::mat x){
 
 double sqrt(double);
 
-// Bayes sparse modeling class
-class bflm{
-  protected:
-    int n, p, t, B;
-    arma::mat y;
-    arma::mat X;
-    arma::mat XtX;
-    arma::mat Xy;
-    
-    arma::mat beta;
-    arma::mat _beta;
-    arma::mat beta_old;
-    arma::mat beta_new;
-    arma::cube beta_list;
-    arma::mat S_beta, invS_beta;
-      
-    double sigma2;
-    double _sigma2;
-    double sigma2_old;
-    double sigma2_new;
-    double nu0_sigma2, eta0_sigma2, nu1_sigma2, eta1_sigma2;
-    arma::cube sigma2_list;
-    
-    Rcpp::List param;
-    Rcpp::List params;
-    Rcpp::DataFrame hparams;
-
-    arma::mat In;
-    
-  public:
-    bflm(arma::mat _y, arma::mat _X, int _B):
-    n(_X.n_rows), p(_X.n_cols), B(_B), y(_y), X(_X), In(arma::eye(n,n)) {
-      XtX = trans(X)*X;
-      Xy = trans(X)*y;
-        
-      nu0_sigma2 = 0.00001, eta0_sigma2 = 0.00001;
-      
-      beta_list = arma::cube(p,1,B).fill(NA_REAL);
-      beta_list.slice(0) =  arma::zeros(p,1);
-
-      sigma2_list = arma::cube(1,1,B).fill(NA_REAL);
-      sigma2_list.slice(0) = 1.0;
-    }
-    
-    virtual ~bflm() {}
-    
-    virtual void up(Rcpp::List params, int t){
-      std::cout << "message from bsm" << std::endl;
-    }
-    
-    Rcpp::List gibbs_sampler() {
-      if(hparams.nrows()==1){
-        Progress prober(B-1, true);
-        for(t=0;t<(B-1);t++){
-          prober.increment(); 
-          up(params, t);
-        }
-        return params;
-      } else{
-        // TODO:複数の超パラメータに対する処理を追加する
-        return params;
-      }
-    }
-};
-
 // Bayes Neg fuzed lasso modeling
-class negflm : public bflm{
+class negflm : public bsm{
 protected:
   arma::mat invtau2_til;
   arma::mat _invtau2_til;
@@ -111,7 +43,7 @@ protected:
 
 public:
   negflm(arma::mat _y, arma::mat _X, Rcpp::DataFrame _hparams, int _B): 
-  bflm(_y, _X, _B){
+  bsm(_y, _X, _B){
     
     invtau2_til_list = arma::cube(p-1,1,B).fill(NA_REAL);
     invtau2_til_list.slice(0) = arma::ones(p-1,1);
@@ -262,7 +194,7 @@ class negflm_bas : public negflm{
 
 
 // Bayes Neg sparse fuzed lasso modeling
-class negsflm : public bflm{
+class negsflm : public bsm{
 protected:
   arma::mat invtau2_new;
   arma::mat invtau2_old;
@@ -273,7 +205,7 @@ protected:
   
 public:
   negsflm(arma::mat _y, arma::mat _X, Rcpp::DataFrame _hparams, int _B): 
-  bflm(_y, _X, _B){
+  bsm(_y, _X, _B){
     
     arma::cube invtau2_list = arma::cube(p,1,B).fill(NA_REAL);
     invtau2_list.slice(0) = arma::mat(p,1).fill(1.0/p);
