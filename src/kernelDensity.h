@@ -9,3 +9,4 @@ float Ko(double t);
 double mode_kde(arma::vec points, int T);
 
 #endif
+

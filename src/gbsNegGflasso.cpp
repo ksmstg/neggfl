@@ -5,22 +5,7 @@
 
 #include "bayesSparseModel.h"
 #include "sampling.h"
-
-double sq(double x){
-  return x*x;
-}
-
-double sq_norm(arma::vec x){
-  double tmp = norm(x, 2);
-  return tmp*tmp;
-}
-
-double sq_norm_mat(arma::mat x){
-  double tmp = norm(x, 2);
-  return tmp*tmp;
-}
-
-double sqrt(double);
+#include "utils.h"
 
 // Bayes Neg fuzed lasso modeling
 class negflm : public bsm{
