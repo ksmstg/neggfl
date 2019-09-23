@@ -4,12 +4,12 @@
 \alias{ebic}
 \title{EBIC calculation.}
 \usage{
-ebic(y, x, beta, sigma2, type = "fusedlasso")
+ebic(x, y, beta, sigma2, type = "fusedlasso")
 }
 \arguments{
-\item{y}{y is a vector of response variable of order n x 1.}
-
 \item{x}{is a matrix of order n x p where n is number of observations and p is number of predictor variables.}
+
+\item{y}{y is a vector of response variable of order n x 1.}
 
 \item{beta}{Regression coefficient.}
 

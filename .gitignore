@@ -1,5 +1,30 @@
 */result/*
 
+inst/lib
+.Rproj.user
+src/*.o
+src/*.so
+src/*.dll
+src/symbols.rds
+.Rhistory
+.DS_Store
+
+## QtCreator
+Rcpp.pro
+Rcpp.pro.user
+*.autosave
+.#*
+
+vignettes/*_cache
+
+## GNU global
+GPATH
+GRTAGS
+GTAGS
+
+##
+local/
+
 # History files
 .Rhistory
 .Rapp.history

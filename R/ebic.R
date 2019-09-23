@@ -35,6 +35,9 @@ ebic_fl = function(x, y, beta, sigma2){
 ##' 
 ##' @export
 ebic = function(x, y, beta, sigma2, type="fusedlasso"){
+  if(ncol(x)!=nrow(beta)){
+    warning("Incorrect shape of matrix of x and beta : ncol(x)!=nrow(beta) ")
+  }
   if(type=="fusedlasso"){
     value=ebic_fl(x, y, beta, sigma2)
   }
