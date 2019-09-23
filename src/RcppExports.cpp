@@ -6,6 +6,20 @@
 
 using namespace Rcpp;
 
+// bfl_bas
+Rcpp::List bfl_bas(arma::mat y, arma::mat X, Rcpp::DataFrame hparams, int B);
+RcppExport SEXP _neggfl_bfl_bas(SEXP ySEXP, SEXP XSEXP, SEXP hparamsSEXP, SEXP BSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< arma::mat >::type y(ySEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type X(XSEXP);
+    Rcpp::traits::input_parameter< Rcpp::DataFrame >::type hparams(hparamsSEXP);
+    Rcpp::traits::input_parameter< int >::type B(BSEXP);
+    rcpp_result_gen = Rcpp::wrap(bfl_bas(y, X, hparams, B));
+    return rcpp_result_gen;
+END_RCPP
+}
 // negfl_bas
 Rcpp::List negfl_bas(arma::mat y, arma::mat X, Rcpp::DataFrame hparams, int B);
 RcppExport SEXP _neggfl_negfl_bas(SEXP ySEXP, SEXP XSEXP, SEXP hparamsSEXP, SEXP BSEXP) {
@@ -47,6 +61,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_neggfl_bfl_bas", (DL_FUNC) &_neggfl_bfl_bas, 4},
     {"_neggfl_negfl_bas", (DL_FUNC) &_neggfl_negfl_bas, 4},
     {"_neggfl_mode_kde", (DL_FUNC) &_neggfl_mode_kde, 2},
     {"_neggfl_Int_simt_log_D", (DL_FUNC) &_neggfl_Int_simt_log_D, 3},

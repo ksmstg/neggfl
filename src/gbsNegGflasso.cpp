@@ -64,7 +64,7 @@ arma::mat negflm_bas::samp_invtau2_til(arma::mat _beta, arma::mat _psi_til, doub
   invtau2_til_new = arma::zeros(p-1,1);
   for(int j=0 ; j < p-1 ; j++){
     lamb_invtau2_til = 2.0 * _psi_til(j,0);
-    mu_invtau2_til = sqrt( (lamb_invtau2_til*_sigma2) / std::abs(_beta(j+1,0)-_beta(j,0)) );
+    mu_invtau2_til = sqrt( (lamb_invtau2_til*_sigma2) ) / std::abs(_beta(j+1,0)-_beta(j,0));
     invtau2_til_new(j,0) = rand_invgauss(mu_invtau2_til, lamb_invtau2_til);
   }
   return invtau2_til_new;
