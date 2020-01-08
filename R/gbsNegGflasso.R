@@ -43,8 +43,10 @@ negfl <- function(x, y, lambda2, gamma2, maxiter=1e5, burnin=3e4, scaled=T, meth
   sfa_res <- sfa_negfl(y, x, beta_hat_tmp, sigma2_hat, lambda2, gamma2)
   beta_hat <- sfa_res$beta %>% matrix()
   
-  beta_hat_tmp <-  diag(1/x_sd) %*% beta_hat_tmp
-  beta_hat <- diag(1/x_sd) %*% beta_hat
+  if(scaled){
+    beta_hat_tmp <-  diag(1/x_sd) %*% beta_hat_tmp
+    beta_hat <- diag(1/x_sd) %*% beta_hat
+  }
   
   return(list(
     name="negfl",

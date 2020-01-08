@@ -71,6 +71,7 @@ sfa_bfl <- function(y, x, beta_hat, sigma2_hat, lamb2, repeat_num=5){
 }
 
 dnegfl <- function(y, x, beta_hat, sigma2_hat, lamb2, gamma2){
+  n = nrow(x)
   score = dmvnorm(as.numeric(y), as.numeric(x%*%beta_hat), sigma2_hat*diag(n), log=T)
   
   dprior_log <- function(beta_hat, sigma2_hat, lamb2, gamma2){
