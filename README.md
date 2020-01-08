@@ -14,6 +14,11 @@ Or for the latest development version:
 devtools::install_github("ksmstg/neggfl") 
 ```
 
+Notes
+-----
+
+To estimate the fused lasso signal approximator (the design matrix is the identity matrix), set the normalization option 'scaled' to 'False'.
+
 Example
 -------
 
