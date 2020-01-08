@@ -42,8 +42,10 @@ bfl <- function(x, y, lambda2, maxiter=1e5, burnin=3e4, scaled=T, method="mode_k
   sfa_res <- sfa_bfl(y, x, beta_hat_tmp, sigma2_hat, lambda2)
   beta_hat <- sfa_res$beta %>% matrix()
   
-  beta_hat_tmp <-  diag(1/x_sd) %*% beta_hat_tmp
-  beta_hat <- diag(1/x_sd) %*% beta_hat
+  if(scaled){
+    beta_hat_tmp <-  diag(1/x_sd) %*% beta_hat_tmp
+    beta_hat <- diag(1/x_sd) %*% beta_hat
+  }
   
   return(list(
     name="bfl",
