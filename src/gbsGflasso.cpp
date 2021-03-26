@@ -51,6 +51,7 @@ arma::mat bflm_bas::samp_beta(arma::mat _invtau2_til, double _sigma2){
   S_beta = make_S_beta(_invtau2_til);
   
   invS_beta = inv(XtX+S_beta);
+  invS_beta = (invS_beta+invS_beta.t())/2;
   beta_new = rmvnorm(1, invS_beta*Xy, _sigma2*invS_beta).t();
 
   return beta_new;
